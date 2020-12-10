@@ -17,11 +17,15 @@ import android.net.wifi.WifiNetworkSuggestion;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    EditText editText;
 
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -29,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //edit text
+        editText = findViewById(R.id.editTextTextPersonName);
 
         //The SSID and Password Required !!!
 
@@ -65,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
         cm.requestNetwork(nr, networkCallback);
+    }
+
+    public void sendData(View v)
+    {
+        new SendCommand().execute(editText.getText().toString());
+        editText.setText("");
     }
 
 }
