@@ -109,55 +109,5 @@ public class MainActivity extends AppCompatActivity {
         editText.setText("");
     }
 
-    public void connect() {
-        new Thread(new Runnable(){
-
-            @Override
-            public void run() {
-                try {
-
-                    client = new Socket(ipadres, portnumber);
-
-                    printwriter = new PrintWriter(client.getOutputStream(), true);
-                    printwriter.write("HI "); // write the message to output stream
-                    printwriter.flush();
-                    printwriter.close();
-                    connection = true;
-                    Log.d("socket", "connected " + connection);
-
-                    // Toast in background becauase Toast cannnot be in main thread you have to create runOnuithread.
-                    // this is run on ui thread where dialogs and all other GUI will run.
-                    if (client.isConnected()) {
-                        MainActivity.this.runOnUiThread(new Runnable() {
-                            public void run() {
-                                //Do your UI operations like dialog opening or Toast here
-                                connect.setText("Connected");
-                                Toast.makeText(getApplicationContext(), "Messege send", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }
-                catch (UnknownHostException e2){
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            //Do your UI operations like dialog opening or Toast here
-                            Toast.makeText(getApplicationContext(), "Unknown host please make sure IP address", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                }
-                catch (IOException e1) {
-                    Log.d("socket", "IOException");
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            //Do your UI operations like dialog opening or Toast here
-                            Toast.makeText(getApplicationContext(), "Error Occured"+ "  " +to, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-
-            }
-        }).start();
-    }
 
 }
