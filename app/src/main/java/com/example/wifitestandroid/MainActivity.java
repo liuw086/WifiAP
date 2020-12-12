@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         //The SSID and Password Required !!!
 
         connectAP("XyyZ", "welcome1234");
+
+        //running the server
+        new ReciveCommand().execute();
     }
 
 
